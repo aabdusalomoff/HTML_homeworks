@@ -1,356 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: Arial;
+            padding: 50px;
         }
         
-        .registration-form {
-            background-color: white;
-            width: 100%;
-            max-width: 700px;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        form {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
         }
-            
+        
         h1 {
             color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
-        }
-        
-        .form-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-        
-        .form-column {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group {
             margin-bottom: 20px;
-            text-align: left;
         }
         
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-top: 15px;
             color: #555;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: bold;
         }
         
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="tel"] {
+        input {
             width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-        
-        input::placeholder {
-            opacity: 0.5;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .password-requirements {
-            font-size: 11px;
-            color: #888;
+            padding: 10px;
             margin-top: 5px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
         }
         
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        
-        .checkbox-group label {
-            margin: 0;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        
-        .checkbox-group a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        
-        .checkbox-group a:hover {
-            text-decoration: underline;
-        }
-        
-        .gender-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-        
-        .gender-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #555;
-            font-weight: 700;
-            font-size: 14px;
-        }
-        
-        .gender-options {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .gender-option {
-            display: flex;
-            align-items: center;
-        }
-        
-        .gender-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            margin-right: 8px;
-            cursor: pointer;
-        }
-        
-        .gender-option label {
-            margin: 0;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: normal;
-        }
-        
-        .submit-btn {
+        button {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        button:hover {
+            opacity: 0.7;
         }
         
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-        
-        .login-link {
-            margin-top: 20px;
+        p {
             text-align: center;
-            font-size: 14px;
-            color: #666;
+            margin-top: 15px;
         }
         
-        .login-link a {
+        a {
             color: #667eea;
             text-decoration: none;
-            font-weight: 600;
-        }
-        
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-        
-        .error {
-            border-color: #ff4444 !important;
-        }
-        
-        .error-message {
-            color: #ff4444;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
         }
     </style>
 </head>
 <body>
-    <form class="registration-form" id="regForm">
+    <form>
         <h1>Registration</h1>
         
-        <div class="form-columns">
-            <div class="form-column">
-                <div class="form-group">
-                    <label for="fullname">Full Name</label>
-                    <input type="text" id="fullname" name="fullname" placeholder="Enter your name" required>
-                    <span class="error-message" id="fullname-error">Please enter your name</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    <span class="error-message" id="email-error">Please enter a valid email</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    <div class="password-requirements">Minimum 8 characters</div>
-                    <span class="error-message" id="password-error">Password must be at least 8 characters</span>
-                </div>
-            </div>
-            
-            <div class="form-column">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                    <span class="error-message" id="username-error">Please enter a username</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your number">
-                </div>
-                
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
-                    <span class="error-message" id="confirm-error">Passwords do not match</span>
-                </div>
-            </div>
-        </div>
+        <label>Full Name</label>
+        <input type="text" placeholder="Enter fullname" required>
         
-        <div class="gender-group">
-            <label>Gender</label>
-            <div class="gender-options">
-                <div class="gender-option">
-                    <input type="radio" id="male" name="gender" value="male" required>
-                    <label for="male">Male</label>
-                </div>
-                <div class="gender-option">
-                    <input type="radio" id="female" name="gender" value="female" required>
-                    <label for="female">Female</label>
-                </div>
-            </div>
-        </div>
+        <label>Username</label>
+        <input type="text" placeholder="Enter username" required>
         
-        <div class="checkbox-group">
-            <input type="checkbox" id="terms" name="terms" required>
-            <label for="terms">I agree to the <a href="#">terms and conditions</a></label>
-        </div>
+        <label>Email</label>
+        <input type="email" placeholder="Enter email" required>
         
-        <button type="submit" class="submit-btn">Register</button>
+        <label>Phone Number</label>
+        <input type="tel" placeholder="Enter phone number">
         
-        <div class="login-link">
-            Already have an account? <a href="#">Login</a>
-        </div>
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" required>
+        
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confrim password" required>
+        
+        <label>
+            <input type="radio" name="gender" value="male"> Male
+            <input type="radio" name="gender" value="female"> Female
+        </label>
+        
+        <label>
+            <input type="checkbox" required> I agree to terms and conditions
+        </label>
+        
+        <button type="submit">Register</button>
+        
+        <p>Already have an account? <a href="#">Login</a></p>
     </form>
-
-    <script>
-        const form = document.getElementById('regForm');
-        const fullname = document.getElementById('fullname');
-        const email = document.getElementById('email');
-        const username = document.getElementById('username');
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('confirm-password');
-        const terms = document.getElementById('terms');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let isValid = true;
-            
-            // Clear previous errors
-            document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
-            document.querySelectorAll('input').forEach(input => input.classList.remove('error'));
-            
-            // Check name
-            if (fullname.value.trim() === '') {
-                showError(fullname, 'fullname-error');
-                isValid = false;
-            }
-            
-            // Check username
-            if (username.value.trim() === '') {
-                showError(username, 'username-error');
-                isValid = false;
-            }
-            
-            // Check email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email.value)) {
-                showError(email, 'email-error');
-                isValid = false;
-            }
-            
-            // Check password
-            if (password.value.length < 8) {
-                showError(password, 'password-error');
-                isValid = false;
-            }
-            
-            // Check password match
-            if (password.value !== confirmPassword.value) {
-                showError(confirmPassword, 'confirm-error');
-                isValid = false;
-            }
-            
-            // Check agreement with terms
-            if (!terms.checked) {
-                alert('Please agree to the terms and conditions');
-                isValid = false;
-            }
-            
-            if (isValid) {
-                alert('Registration successful! ✓');
-                form.reset();
-            }
-        });
-        
-        function showError(input, errorId) {
-            input.classList.add('error');
-            document.getElementById(errorId).style.display = 'block';
-        }
-        
-        // Remove error on input
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('error');
-                const errorMsg = this.parentElement.querySelector('.error-message');
-                if (errorMsg) errorMsg.style.display = 'none';
-            });
-        });
-    </script>
 </body>
 </html>
